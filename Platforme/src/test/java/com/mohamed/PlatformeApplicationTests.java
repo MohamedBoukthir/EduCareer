@@ -1,4 +1,4 @@
-package com.mohamed.Platforme;
+package com.mohamed;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
