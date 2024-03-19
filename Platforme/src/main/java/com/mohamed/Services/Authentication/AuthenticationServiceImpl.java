@@ -1,5 +1,7 @@
 package com.mohamed.Services.Authentication;
 
+import com.mohamed.Dto.RegisterRequest;
+import com.mohamed.Dto.UserDto;
 import com.mohamed.Entities.User;
 import com.mohamed.Enums.Role;
 import com.mohamed.Repositories.UserRepository;
@@ -32,4 +34,26 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         }
     }
 
+    // Default User Account Creation
+    @Override
+    public UserDto createUser(RegisterRequest registerRequest) {
+        User user = new User();
+        user.setFullName(registerRequest.getFullName());
+        user.setEmail(registerRequest.getEmail());
+        user.setPassword(new BCryptPasswordEncoder().encode(registerRequest.getPassword()));
+        user.setBio(registerRequest.getBio());
+        user.setCountry(registerRequest.getCountry());
+        user.setGithubLink(registerRequest.getGithubLink());
+        user.setLinkedinLink(registerRequest.getLinkedinLink());
+        user.setRole(Role.USER);
+        User createdUser = userRepository.save(user);
+        UserDto userDto = new UserDto();
+        userDto.setId(createdUser.getId());
+        return userDto;
+    }
+
+    @Override
+    public boolean hasUserWithEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 }
