@@ -29,6 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             newAdminAccount.setGithubLink("");
             newAdminAccount.setLinkedinLink("");
             newAdminAccount.setPassword(new BCryptPasswordEncoder().encode("admin"));
+            newAdminAccount.setRole(Role.ADMIN);
             userRepository.save(newAdminAccount);
             System.out.println(" * * * Welcome " + newAdminAccount.getFullName() + " * * * ");
         }
